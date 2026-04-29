@@ -2,12 +2,22 @@ services:
   manager:
     build: ./manager
     ports:
-      - "4000:4000"   # REST API
-      - "4001:4001"   # MCP SSE
+      - "4002:4000"   # REST API (changed host port to 4002)
+      - "4003:4001"   # MCP SSE (changed host port to 4003)
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - MANAGER_URL=http://localhost:4000
+      - MANAGER_URL=http://localhost:4002
+    restart: unless-stopped
+
+  app:
+    build: ./app
+    ports:
+      - "3000:3000"
+    environment:
+      - MANAGER_URL=http://manager:4000
+    depends_on:
+      - manager
     restart: unless-stopped
 
 networks:

@@ -2,8 +2,8 @@ services:
   manager:
     build: ./manager
     ports:
-      - "4002:4000"   # REST API (changed host port to 4002)
-      - "4003:4001"   # MCP SSE (changed host port to 4003)
+      - "4002:4000"
+      - "4003:4001"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:

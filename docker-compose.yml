@@ -13,7 +13,7 @@ services:
   app:
     build: ./app
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       - MANAGER_URL=http://manager:4000
     depends_on:

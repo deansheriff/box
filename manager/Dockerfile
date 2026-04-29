@@ -2,17 +2,14 @@ FROM node:20-slim
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-RUN npm install
+COPY package.json .
+RUN npm install --production
 
-COPY . .
+COPY server.js .
+COPY mcp-server.js .
+COPY start.sh .
+RUN chmod +x start.sh
 
-# Skip TS type checking and ESLint during build
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS=--max-old-space-size=4096
+EXPOSE 4000 4001
 
-RUN npm run build -- --no-lint
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD ["./start.sh"]
